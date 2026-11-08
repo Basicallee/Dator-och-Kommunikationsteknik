@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="En omfattande svensk Linux-studieguide med teori, kommandon, Bandit-inspirerade övningar och självrättande quiz.">
+<title>Linuxbiblioteket – Studieguide och övningar</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2d;--panel2:#18233a;--text:#e8edf7;--muted:#a8b4ca;--line:#293752;--accent:#79b8ff;--green:#76d6a4;--yellow:#f2c879;--red:#ff9292;--code:#090e19;--shadow:0 12px 35px #0004}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:var(--accent)}button,input{font:inherit}button{cursor:pointer}
+header{padding:34px max(22px,calc((100vw - 1450px)/2));background:linear-gradient(120deg,#172b49,#111a2d 65%,#1a2440);border-bottom:1px solid var(--line)}
+header h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;margin:0 0 12px}header p{max-width:850px;color:var(--muted);margin:0}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.pill{border:1px solid #456080;border-radius:99px;padding:4px 11px;color:#c9ddf5;font-size:.85rem}
+.layout{max-width:1450px;margin:auto;padding:24px;display:grid;grid-template-columns:285px minmax(0,1fr);gap:24px}
+nav{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
+nav h2{font-size:1rem;margin:0 0 10px}nav a{display:block;color:var(--muted);text-decoration:none;padding:6px 9px;border-radius:7px;font-size:.91rem}nav a:hover{background:var(--panel2);color:var(--text)}
+.search{width:100%;padding:10px 12px;background:var(--code);color:var(--text);border:1px solid var(--line);border-radius:9px;margin-bottom:12px}
+main{min-width:0}.intro,.chapter,.toolbox{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:clamp(18px,3vw,30px);margin-bottom:20px;box-shadow:var(--shadow)}
+h2{font-size:1.65rem;margin:0 0 15px;line-height:1.25}h3{font-size:1.2rem;margin:25px 0 8px;color:#d7e8ff}h4{margin:18px 0 6px;color:#d7e8ff}
+p{margin:8px 0 13px}li{margin:5px 0}ul,ol{padding-left:24px}
+.muted{color:var(--muted)}.callout{border-left:4px solid var(--accent);background:#17243a;padding:12px 15px;border-radius:0 9px 9px 0;margin:15px 0}.warn{border-left-color:var(--yellow)}.good{border-left-color:var(--green)}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#202d43;padding:2px 5px;border-radius:5px;color:#d7e9ff}
+pre{overflow:auto;background:var(--code);border:1px solid var(--line);padding:14px 16px;border-radius:10px;color:#d9e6fa;line-height:1.5}pre code{padding:0;background:none}
+table{width:100%;border-collapse:collapse;margin:12px 0 18px;font-size:.94rem}th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}th{background:var(--panel2);color:#d9eaff}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px}.card h4{margin-top:0}
+.tag{display:inline-block;font-size:.76rem;border-radius:99px;padding:2px 9px;background:#203c5d;color:#b9dcff;margin-bottom:7px}.tag.mid{background:#4b3c20;color:#ffe0a3}.tag.hard{background:#4a292e;color:#ffc0c0}
+details{border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin:10px 0;background:#10182a}summary{cursor:pointer;color:#d8e8ff;font-weight:650}
+.progress{height:9px;background:#26344d;border-radius:99px;overflow:hidden}.progress span{display:block;height:100%;background:var(--green);width:0;transition:width .2s}
+.check{display:flex;gap:9px;align-items:flex-start;margin:8px 0}.check input{margin-top:6px;accent-color:var(--green)}
+.quiz-q{padding:14px 0;border-bottom:1px solid var(--line)}.quiz-q label{display:block;margin:7px 0;color:var(--muted);cursor:pointer}.quiz-q input{accent-color:var(--accent)}
+.action{border:1px solid #54759a;background:#1b3554;color:#eaf4ff;border-radius:9px;padding:9px 14px;margin:6px 6px 6px 0}.action:hover{background:#27496f}.result{font-weight:700;margin-top:12px}
+footer{max-width:1450px;margin:0 auto;padding:0 24px 35px;color:var(--muted);font-size:.9rem}
+.hidden{display:none!important}
+@media(max-width:900px){.layout{grid-template-columns:1fr;padding:14px}nav{position:relative;top:0;max-height:none}nav .navlinks{columns:2}.grid2{grid-template-columns:1fr}}
+@media print{body{background:white;color:#111}.layout{display:block;max-width:none;padding:0}nav,.action,.search{display:none!important}.chapter,.intro,.toolbox{box-shadow:none;background:white;color:#111;border:1px solid #bbb;break-inside:avoid}h2,h3,h4,th{color:#111}pre{white-space:pre-wrap;background:#f3f3f3;color:#111}code{background:#eee;color:#111}.muted{color:#444}details{background:white;color:#111}details>*{display:block}a{color:#111}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Linuxbiblioteket</h1>
+  <p>En stor svensk studieguide för Linux: från grunderna till systemadministration, nätverk, felsökning och Bandit-inspirerade terminalutmaningar. Kommandon och etablerade Linux-termer behålls på engelska där det är naturligt.</p>
+  <div class="meta"><span class="pill">GY25 – studiestöd</span><span class="pill">Grundläggande + intermediate</span><span class="pill">Fedora som exempel</span><span class="pill">Självtest och övningar</span></div>
+</header>
+<div class="layout">
+<nav>
+  <h2>Innehåll</h2>
+  <input id="search" class="search" type="search" placeholder="Sök i biblioteket…">
+  <div class="navlinks" id="navlinks">
+    <a href="#gy25">GY25 och provet</a><a href="#linux">1. Vad är Linux?</a><a href="#kernel">2. Kernel, shell och terminal</a>
+    <a href="#filesystem">3. Filesystem och paths</a><a href="#files">4. Filkommandon</a><a href="#searching">5. Söka och läsa text</a>
+    <a href="#users">6. Users och groups</a><a href="#permissions">7. Permissions</a><a href="#processes">8. Processes</a>
+    <a href="#services">9. systemd och services</a><a href="#packages">10. Package management</a><a href="#network">11. Networking</a>
+    <a href="#storage">12. Storage och filesystems</a><a href="#boot">13. Bootprocessen</a><a href="#pipes">14. Pipes och redirection</a>
+    <a href="#archives">15. Arkiv, encoding och hashing</a><a href="#ssh">16. SSH</a><a href="#shell">17. Shell och scripting</a>
+    <a href="#security">18. Security</a><a href="#troubleshooting">19. Felsökning</a><a href="#intermediate">20. Intermediate</a>
+    <a href="#cheatsheet">Kommandoreferens</a><a href="#challenges">Praktiska utmaningar</a><a href="#quiz">Kunskapstest</a>
+  </div>
+</nav>
+<main>
+<section class="intro">
+<h2>Så använder du biblioteket</h2>
+<p>Du kan läsa kapitlen i ordning, söka efter ett begrepp eller använda övningarna för att träna aktivt. Övningarna är gjorda för att du ska förstå principerna och kunna lösa nya uppgifter – inte bara memorera kommandon.</p>
+<div class="callout good"><strong>Viktigt:</strong> Kör inte kommandon du inte förstår på din vanliga dator, särskilt inte kommandon med <code>sudo</code>, <code>rm</code>, partitionering eller formatering. Använd en testmiljö eller virtuella maskiner för riskfyllda moment.</div>
+<p>Framsteg i checklistan sparas lokalt i webbläsaren på den här enheten. Om du delar HTML-filen får andra en egen lokal kopia av sina framsteg.</p>
+<div class="progress"><span id="progressbar"></span></div><p class="muted" id="progresslabel">0 av 20 kapitel markerade som klara.</p>
+</section>
+
+<section class="chapter" id="gy25">
+<h2>GY25 – vad behöver du kunna?</h2>
+<p>GY25 är ett ämnes- och nivåsystem, inte en enda universell lista över Linux-kommandon. I dator- och kommunikationsteknik kan Linux kopplas till flera större områden: operativsystem, hårdvara, nätverk, installation, konfiguration, säkerhet, felsökning och dokumentation. Exakt vad som examineras beror på kursens upplägg och lärarens instruktioner.</p>
+<h3>Tre kunskapsområden att förbereda</h3>
+<div class="grid2">
+<div class="card"><h4>Teori</h4><p>Förstå hur Linux och andra operativsystem fungerar, hur nätverk kommunicerar och hur hårdvara startar upp.</p></div>
+<div class="card"><h4>Administration</h4><p>Hantera users, groups, permissions, software, services, storage och systeminställningar.</p></div>
+<div class="card"><h4>Praktisk problemlösning</h4><p>Undersöka ett problem, välja rätt verktyg, tolka output och verifiera att lösningen fungerar.</p></div>
+<div class="card"><h4>Dokumentation och säkerhet</h4><p>Arbeta metodiskt, dokumentera ändringar, göra backups och använda least privilege.</p></div>
+</div>
+<div class="callout"><strong>Studietips:</strong> Eftersom du redan har gjort OverTheWire Bandit bör du lägga extra tid på att förklara varför kommandon fungerar, nätverksteori, bootprocessen, services och felsökning.</div>
+</section>
+
+<section class="chapter" id="linux">
+<h2>1. Vad är Linux?</h2>
+<p>Linux är i strikt mening en <strong>kernel</strong> – kärnan i ett operativsystem. Ett komplett Linux-operativsystem innehåller även systemverktyg, libraries, shell, tjänster och applikationer. En sådan samling kallas en <strong>distribution</strong> eller distro.</p>
+<h3>Delarna i ett Linux-system</h3>
+<ul><li><strong>Linux kernel:</strong> kommunicerar med hårdvaran och hanterar processer, minne, drivers och nätverk.</li><li><strong>Shell:</strong> tolkar kommandon som användaren skriver.</li><li><strong>System utilities:</strong> verktyg för filer, processer och systemadministration.</li><li><strong>Libraries:</strong> färdiga funktioner som program kan använda.</li><li><strong>Applications:</strong> program som Firefox, Steam och VLC.</li></ul>
+<h3>Vad är en distribution?</h3>
+<p>En distribution kombinerar Linux-kärnan med verktyg, package manager, standardinställningar och program.</p>
+<table><tr><th>Distro</th><th>Paketsystem</th><th>Package manager</th><th>Typiskt fokus</th></tr>
+<tr><td>Fedora</td><td>RPM</td><td>DNF</td><td>Modern mjukvara och ny teknik</td></tr><tr><td>Ubuntu</td><td>DEB</td><td>APT</td><td>Desktop, server och brett stöd</td></tr><tr><td>Debian</td><td>DEB</td><td>APT</td><td>Stabilitet och bred användning</td></tr><tr><td>Arch Linux</td><td>PKG</td><td>Pacman</td><td>Rolling release och manuell kontroll</td></tr><tr><td>openSUSE</td><td>RPM</td><td>Zypper</td><td>Desktop och server</td></tr></table>
+<h3>Linux jämfört med Windows</h3>
+<table><tr><th>Egenskap</th><th>Linux</th><th>Windows</th></tr><tr><td>Källkod</td><td>Kernel och många komponenter är open source</td><td>Huvudsakligen proprietary</td></tr><tr><td>Filesystem</td><td>En gemensam katalogstruktur från <code>/</code></td><td>Vanligen drive letters som C: och D:</td></tr><tr><td>Software</td><td>Repositories och package managers är vanliga</td><td>Installers, Store och package managers</td></tr><tr><td>Administratör</td><td>Root och sudo</td><td>Administrator</td></tr></table>
+<p>Linux är inte automatiskt säkrare eller bättre i alla situationer. Säkerheten beror bland annat på konfiguration, uppdateringar, användarbeteende och vilka tjänster som körs.</p>
+</section>
+
+<section class="chapter" id="kernel">
+<h2>2. Kernel, shell och terminal</h2>
+<h3>Kernel</h3><p>Kernel är den centrala delen av operativsystemet. Den hanterar bland annat process scheduling, memory management, device drivers, filesystem access och nätverksfunktioner.</p>
+<pre><code>uname -a
+uname -r
+lscpu
+free -h
+lsblk</code></pre>
+<p><code>uname -r</code> visar vilken kernel-version som körs. <code>lscpu</code> visar CPU-information, <code>free -h</code> visar minnesanvändning och <code>lsblk</code> listar block devices.</p>
+<h3>Terminal och shell</h3>
+<p>En <strong>terminal</strong> är programmet/fönstret där du skriver kommandon. Ett <strong>shell</strong> är programmet som tolkar och kör dem. Bash (Bourne Again Shell) är vanligt, men Zsh och Fish finns också.</p>
+<pre><code>echo $SHELL
+whoami
+pwd</code></pre>
+<p>Kommandon följer ofta mönstret <code>command [options] [arguments]</code>. I <code>ls -lah /home</code> är <code>ls</code> kommandot, <code>-lah</code> options och <code>/home</code> argumentet.</p>
+<p>Linux är case-sensitive: <code>Notes.txt</code> och <code>notes.txt</code> är två olika namn.</p>
+</section>
+
+<section class="chapter" id="filesystem">
+<h2>3. Filesystem och paths</h2>
+<p>Linux har en gemensam katalogstruktur som börjar vid <code>/</code>, filesystem root. Det finns inte en separat C:-rot för varje disk på samma sätt som i Windows. Olika partitions och enheter monteras in i katalogstrukturen.</p>
+<table><tr><th>Path</th><th>Innehåll / funktion</th></tr>
+<tr><td><code>/</code></td><td>Filesystem root – toppen av hela katalogträdet.</td></tr><tr><td><code>/home</code></td><td>Vanliga användares home directories.</td></tr><tr><td><code>/root</code></td><td>Root-användarens home directory.</td></tr><tr><td><code>/etc</code></td><td>System-wide configuration files.</td></tr><tr><td><code>/bin</code></td><td>Viktiga användarkommandon; på moderna system ofta kopplat till <code>/usr/bin</code>.</td></tr><tr><td><code>/usr</code></td><td>Program, libraries och delad data.</td></tr><tr><td><code>/var</code></td><td>Data som förändras, exempelvis logs och caches.</td></tr><tr><td><code>/tmp</code></td><td>Temporära filer.</td></tr><tr><td><code>/dev</code></td><td>Device files och enhetsgränssnitt.</td></tr><tr><td><code>/proc</code></td><td>Virtuellt filesystem med process- och kernelinformation.</td></tr><tr><td><code>/sys</code></td><td>Virtuellt filesystem för kernel- och hårdvaruinformation.</td></tr><tr><td><code>/boot</code></td><td>Filer som behövs för boot, exempelvis kernel och bootloader-data.</td></tr><tr><td><code>/mnt</code></td><td>Vanlig plats för tillfälliga mount points.</td></tr><tr><td><code>/media</code></td><td>Vanlig plats för monterade removable drives.</td></tr></table>
+<div class="callout warn"><strong>Blanda inte ihop:</strong> <code>/</code> är filesystem root. <code>/root</code> är root-användarens home directory. <code>/home/dittnamn</code> är en vanlig användares home directory.</div>
+<h3>Absolute och relative paths</h3>
+<ul><li><strong>Absolute path</strong> börjar vid <code>/</code>, exempelvis <code>/home/student/Downloads</code>.</li><li><strong>Relative path</strong> utgår från aktuell katalog, exempelvis <code>Downloads</code>.</li></ul>
+<table><tr><th>Symbol</th><th>Betydelse</th></tr><tr><td><code>.</code></td><td>Current directory</td></tr><tr><td><code>..</code></td><td>Parent directory</td></tr><tr><td><code>~</code></td><td>Nuvarande användares home directory</td></tr><tr><td><code>/</code></td><td>Filesystem root</td></tr></table>
+<pre><code>pwd       # visa aktuell katalog
+cd ..     # gå en nivå upp
+cd ~      # gå till home directory
+cd /etc   # gå till en absolut path</code></pre>
+</section>
+
+<section class="chapter" id="files">
+<h2>4. Grundläggande filkommandon</h2>
+<table><tr><th>Command</th><th>Vad det gör</th></tr><tr><td><code>ls</code></td><td>Listar filer och kataloger.</td></tr><tr><td><code>cd</code></td><td>Byter aktuell katalog.</td></tr><tr><td><code>pwd</code></td><td>Visar aktuell katalog.</td></tr><tr><td><code>mkdir</code></td><td>Skapar en katalog.</td></tr><tr><td><code>touch</code></td><td>Skapar en tom fil om den saknas, annars uppdaterar timestamp.</td></tr><tr><td><code>cp</code></td><td>Kopierar filer/kataloger.</td></tr><tr><td><code>mv</code></td><td>Flyttar eller byter namn på filer.</td></tr><tr><td><code>rm</code></td><td>Tar bort filer.</td></tr><tr><td><code>rmdir</code></td><td>Tar bort tomma kataloger.</td></tr><tr><td><code>cat</code></td><td>Skriver ut filinnehåll.</td></tr><tr><td><code>less</code></td><td>Läser fil sida för sida.</td></tr><tr><td><code>file</code></td><td>Identifierar filtyp utifrån innehållet.</td></tr><tr><td><code>stat</code></td><td>Visar metadata om en fil.</td></tr><tr><td><code>tree</code></td><td>Visar katalogstruktur som träd, om installerat.</td></tr></table>
+<pre><code>mkdir test
+touch notes.txt
+cp notes.txt backup.txt
+mv notes.txt Documents/
+mv backup.txt newname.txt
+rm newname.txt</code></pre>
+<div class="callout warn"><strong>Var försiktig med <code>rm</code>:</strong> filer hamnar normalt inte i en papperskorg. Kontrollera path och argument innan du kör kommandot. Extra försiktighet gäller <code>rm -r</code> och framför allt kommandon med <code>sudo</code>.</div>
+<h3>Hidden files</h3><p>Filer vars namn börjar med punkt är dolda i vanliga listningar, exempelvis <code>.bashrc</code>, <code>.config</code> och <code>.ssh</code>. Dold betyder inte skyddad eller krypterad.</p>
+<pre><code>ls -a       # visa även dolda filer
+ls -la      # detaljerad lista inklusive dolda filer</code></pre>
+</section>
+
+<section class="chapter" id="searching">
+<h2>5. Läsa och söka i filer</h2>
+<h3>cat, less, head och tail</h3>
+<pre><code>cat file.txt
+less file.txt       # tryck q för att avsluta
+head file.txt       # första raderna
+tail file.txt       # sista raderna
+tail -n 20 file.txt # sista 20 raderna
+tail -f app.log     # följ en logg när den uppdateras</code></pre>
+<h3>grep – söka efter text</h3>
+<pre><code>grep "password" file.txt
+grep -rin "error" /var/log</code></pre>
+<table><tr><th>Option</th><th>Betydelse</th></tr><tr><td><code>-i</code></td><td>Ignorera skillnad mellan versaler och gemener.</td></tr><tr><td><code>-r</code></td><td>Sök rekursivt i kataloger.</td></tr><tr><td><code>-n</code></td><td>Visa radnummer.</td></tr><tr><td><code>-v</code></td><td>Visa rader som inte matchar.</td></tr><tr><td><code>-l</code></td><td>Visa endast filnamn med träffar.</td></tr><tr><td><code>-h</code></td><td>Dölj filnamn i output i vissa sammanhang.</td></tr></table>
+<h3>find – söka efter filer</h3>
+<pre><code>find /home -name "notes.txt"
+find . -name "*.txt"
+find /home -type f -size +100M
+find /home -type d -name "Downloads"
+find /home -user student</code></pre>
+<p><code>-name</code> söker efter namn, <code>-type f</code> efter vanliga filer, <code>-type d</code> efter kataloger, <code>-user</code> efter ägare och <code>-size</code> efter storlek. <code>-mtime</code> kan användas för att filtrera efter ändringstid.</p>
+<h3>locate</h3><p><code>locate notes.txt</code> söker i en indexerad databas och kan vara snabbare än <code>find</code>. Nya filer kanske inte finns med förrän databasen uppdaterats.</p>
+</section>
+
+<section class="chapter" id="users">
+<h2>6. Users och groups</h2>
+<p>Linux är ett multi-user operating system. Varje user har ett numeriskt <strong>UID</strong> (User ID), och varje group har ett <strong>GID</strong> (Group ID). Groups gör det enklare att ge flera användare liknande åtkomst.</p>
+<pre><code>whoami
+id
+groups
+who
+getent passwd
+getent group</code></pre>
+<p>Ett exempel på <code>id</code>-output kan vara <code>uid=1000(student) gid=1000(student) groups=1000(student),10(wheel)</code>. Det visar UID, primär GID och extra groups. På många system är UID 0 root.</p>
+<h3>Root, superuser, sudo och su</h3>
+<ul><li><strong>root:</strong> det särskilda administratörskontot, normalt med UID 0.</li><li><strong>superuser:</strong> ett annat namn för ett konto med root-liknande privilegier.</li><li><strong>sudo:</strong> låter en behörig användare köra ett kommando med förhöjda privilegier.</li><li><strong>su:</strong> byter användare; utan användarnamn försöker det normalt byta till root.</li></ul>
+<pre><code>sudo dnf upgrade
+su username
+su -
+exit</code></pre>
+<p><code>sudo</code> används ofta för ett enskilt administratörskommando. <code>su -</code> startar en login shell för root om kontot och autentiseringen tillåter det. Logga ut ur en sådan session med <code>exit</code>.</p>
+<div class="callout good"><strong>Principle of least privilege:</strong> använd ett vanligt konto till vardags och höj privilegier endast när det behövs. Kör inte vanliga appar som root.</div>
+</section>
+
+<section class="chapter" id="permissions">
+<h2>7. File permissions</h2>
+<p>Linux har tre grundläggande permissions: read (<code>r</code>), write (<code>w</code>) och execute (<code>x</code>). De anges för tre kategorier: owner/user, group och others.</p>
+<pre><code>-rwxr-xr--</code></pre>
+<p>Det första tecknet anger filtyp: <code>-</code> betyder vanlig fil och <code>d</code> betyder directory. Därefter kommer tre tecken för owner, tre för group och tre för others.</p>
+<table><tr><th>Permission</th><th>Symbol</th><th>Vanlig fil</th><th>Directory</th></tr><tr><td>Read</td><td>r</td><td>Läsa innehållet</td><td>Lista namn i katalogen</td></tr><tr><td>Write</td><td>w</td><td>Ändra innehållet</td><td>Skapa, ta bort och byta namn på entries, om övriga villkor tillåter</td></tr><tr><td>Execute</td><td>x</td><td>Köra filen som program/script</td><td>Gå igenom/traversera katalogen</td></tr></table>
+<h3>chmod – ändra permissions</h3>
+<p>Symbolisk notation:</p><pre><code>chmod u+x script.sh
+chmod g-w file.txt
+chmod o=r file.txt
+chmod a+r file.txt</code></pre>
+<p><code>u</code> = user/owner, <code>g</code> = group, <code>o</code> = others, <code>a</code> = all. <code>+</code> lägger till, <code>-</code> tar bort och <code>=</code> sätter exakt.</p>
+<h3>Numerisk notation</h3>
+<table><tr><th>Permission</th><th>Värde</th><th>Kombination</th></tr><tr><td>read (r)</td><td>4</td><td></td></tr><tr><td>write (w)</td><td>2</td><td></td></tr><tr><td>execute (x)</td><td>1</td><td></td></tr><tr><td>rwx</td><td>7</td><td>4 + 2 + 1</td></tr><tr><td>rw-</td><td>6</td><td>4 + 2</td></tr><tr><td>r-x</td><td>5</td><td>4 + 1</td></tr><tr><td>r--</td><td>4</td><td>4</td></tr><tr><td>---</td><td>0</td><td>Inga permissions</td></tr></table>
+<pre><code>chmod 755 script.sh
+chmod 644 file.txt
+chmod 700 private-file</code></pre>
+<p><code>755</code> betyder owner <code>rwx</code>, group <code>r-x</code>, others <code>r-x</code>. <code>644</code> betyder owner <code>rw-</code>, group och others <code>r--</code>. <code>700</code> ger bara owner full access.</p>
+<h3>chown och chgrp</h3><pre><code>sudo chown username file.txt
+sudo chown username:group file.txt
+sudo chown -R username:group folder/
+chgrp group file.txt</code></pre>
+<p><code>chown</code> ändrar owner och eventuellt group. <code>chgrp</code> ändrar group. <code>-R</code> betyder recursive – ändringen gäller innehållet under katalogen också.</p>
+<h3>Special permissions</h3>
+<ul><li><strong>SUID (4):</strong> ett executable körs med filägarens effektiva privilegier.</li><li><strong>SGID (2):</strong> på executables används gruppens effektiva privilegier; på directories ärver nya filer normalt directoryns group.</li><li><strong>Sticky bit (1):</strong> i en directory begränsar vem som får ta bort eller byta namn på filer där.</li></ul>
+<p>Exempel: <code>/tmp</code> har ofta permissions <code>1777</code>. Alla kan skapa filer, men sticky bit skyddar andra användares filer från vanlig borttagning av andra användare.</p>
+</section>
+
+<section class="chapter" id="processes">
+<h2>8. Processes och systemresurser</h2>
+<p>En <strong>process</strong> är en körande instans av ett program. Varje process har ett PID (Process ID). Ett program kan skapa flera processer.</p>
+<pre><code>ps
+ps aux
+top
+htop
+pgrep firefox
+kill PID
+kill -9 PID</code></pre>
+<p><code>ps aux</code> visar en detaljerad processlista. <code>top</code> visar processer och systembelastning live. <code>htop</code> är ett mer interaktivt alternativ om det är installerat. <code>pgrep</code> söker processer efter namn.</p>
+<h3>Signals</h3>
+<table><tr><th>Signal</th><th>Nummer</th><th>Funktion</th></tr><tr><td>SIGTERM</td><td>15</td><td>Ber processen avsluta på ett normalt sätt.</td></tr><tr><td>SIGKILL</td><td>9</td><td>Tvingar processen att avslutas; kan inte fångas upp av processen.</td></tr><tr><td>SIGHUP</td><td>1</td><td>Historiskt hangup; används ibland för att be tjänster läsa om konfiguration.</td></tr><tr><td>SIGINT</td><td>2</td><td>Interrupt, ofta skickad med Ctrl+C.</td></tr></table>
+<p>Föredra normal avslutning med <code>kill PID</code> innan du tar till <code>kill -9 PID</code>.</p>
+<h3>Foreground och background</h3><pre><code>program &
+Ctrl+C   # avbryt foreground-process
+Ctrl+Z   # pausa/suspend foreground-jobb
+jobs     # lista jobb i aktuell shell
+bg       # fortsätt ett pausat jobb i background
+fg       # ta tillbaka jobb till foreground</code></pre>
+</section>
+
+<section class="chapter" id="services">
+<h2>9. systemd och services</h2>
+<p>Många moderna Linux-distributioner använder <strong>systemd</strong> som init system och service manager. Det startar systemet och hanterar bakgrundstjänster, så kallade services.</p>
+<pre><code>systemctl status sshd
+sudo systemctl start sshd
+sudo systemctl stop sshd
+sudo systemctl restart sshd
+sudo systemctl enable sshd
+sudo systemctl disable sshd</code></pre>
+<table><tr><th>Command</th><th>Betydelse</th></tr><tr><td><code>start</code></td><td>Startar tjänsten nu.</td></tr><tr><td><code>stop</code></td><td>Stoppar tjänsten nu.</td></tr><tr><td><code>restart</code></td><td>Startar om tjänsten nu.</td></tr><tr><td><code>enable</code></td><td>Konfigurerar automatisk start vid framtida boot.</td></tr><tr><td><code>disable</code></td><td>Tar bort automatisk start.</td></tr><tr><td><code>status</code></td><td>Visar status och ofta senaste loggraderna.</td></tr></table>
+<p>En service kan vara enabled men inte köras just nu. Den kan också vara running utan att vara enabled.</p>
+<h3>Logs med journalctl</h3><pre><code>journalctl
+journalctl -b
+journalctl -b -1
+journalctl -u NetworkManager
+journalctl -p err</code></pre>
+<p><code>-b</code> visar aktuell boot, <code>-b -1</code> föregående boot, <code>-u</code> filtrerar på unit/service och <code>-p err</code> filtrerar på error-priority och allvarligare nivåer.</p>
+<p>Andra diagnostikkommandon: <code>dmesg</code> visar kernel messages och <code>uptime</code> visar hur länge systemet varit igång samt load averages.</p>
+</section>
+
+<section class="chapter" id="packages">
+<h2>10. Package management</h2>
+<p>En package manager installerar, uppdaterar och tar bort software packages. Den hämtar ofta program från repositories – servrar eller samlingar med paket. Package managers hanterar också dependencies, alltså andra paket som ett program behöver.</p>
+<table><tr><th>Distribution</th><th>Format</th><th>Package manager</th></tr><tr><td>Fedora</td><td>RPM</td><td>DNF</td></tr><tr><td>Debian / Ubuntu</td><td>DEB</td><td>APT</td></tr><tr><td>Arch</td><td>PKG</td><td>Pacman</td></tr><tr><td>openSUSE</td><td>RPM</td><td>Zypper</td></tr></table>
+<h3>DNF på Fedora</h3><pre><code>sudo dnf install firefox
+sudo dnf remove firefox
+sudo dnf upgrade
+dnf search firefox
+dnf info firefox</code></pre>
+<h3>APT på Debian/Ubuntu</h3><pre><code>sudo apt update
+sudo apt upgrade
+sudo apt install firefox
+sudo apt remove firefox
+apt search firefox</code></pre>
+<div class="callout"><strong>Viktig skillnad:</strong> <code>apt update</code> hämtar ny information om tillgängliga paket. <code>apt upgrade</code> installerar tillgängliga uppdateringar för installerade paket. På Fedora hämtar DNF repository metadata när det behövs, och <code>dnf upgrade</code> uppdaterar installerade paket.</div>
+<h3>RPM och repositories</h3><p>RPM Package Manager är både ett paketformat (<code>.rpm</code>) och verktyg för att hantera RPM-paket. DNF använder RPM underliggande.</p><pre><code>rpm -qa          # lista installerade paket
+rpm -qi firefox  # paketinformation</code></pre>
+<p>Fedora har officiella repositories. RPM Fusion är ett oberoende, community-drivet komplement med ytterligare paket som inte distribueras i Fedoras officiella repositories. Det har bland annat Free- och Nonfree-delar. Nonfree betyder inte nödvändigtvis att programmet kostar pengar.</p>
+</section>
+
+<section class="chapter" id="network">
+<h2>11. Networking</h2>
+<h3>Grundbegrepp</h3>
+<table><tr><th>Begrepp</th><th>Förklaring</th></tr><tr><td>IP address</td><td>Logisk adress för ett interface i ett IP-nätverk.</td></tr><tr><td>MAC address</td><td>Link-layer-adress som används i lokala nätverk.</td></tr><tr><td>DNS</td><td>Översätter domain names till IP addresses.</td></tr><tr><td>DHCP</td><td>Delar automatiskt ut nätverksinställningar.</td></tr><tr><td>Default gateway</td><td>Router som skickar trafik vidare till andra nätverk.</td></tr><tr><td>Subnet mask / prefix</td><td>Anger vilken del av IP-adressen som identifierar nätverket.</td></tr><tr><td>TCP</td><td>Connection-oriented transport med tillförlitlig och ordnad leverans.</td></tr><tr><td>UDP</td><td>Connectionless transport utan garanti för leverans eller ordning.</td></tr></table>
+<h3>IPv4 och privata adresser</h3><p>IPv4 använder 32 bitar och skrivs normalt som fyra decimalgrupper, exempelvis <code>192.168.1.100</code>. Varje grupp är 8 bitar och kan ha värdet 0–255.</p>
+<p>Privata IPv4-intervall är:</p><ul><li><code>10.0.0.0/8</code></li><li><code>172.16.0.0/12</code></li><li><code>192.168.0.0/16</code></li></ul>
+<p>Privata adresser används i interna nätverk och routas inte direkt över det publika internet. IPv6 använder 128 bitar och skapades bland annat för att ge ett mycket större adressutrymme. Exempel: <code>2001:db8::1</code>.</p>
+<h3>TCP jämfört med UDP</h3>
+<table><tr><th>TCP</th><th>UDP</th></tr><tr><td>Connection-oriented</td><td>Connectionless</td></tr><tr><td>Bekräftelser och retransmission ger tillförlitlig leverans</td><td>Ingen inbyggd garanti för leverans</td></tr><tr><td>Data levereras i ordning till applikationen</td><td>Ingen garanti för ordning</td></tr><tr><td>Mer protokollhantering</td><td>Mindre overhead</td></tr></table>
+<p>TCP används bland annat för SSH och mycket webtrafik. UDP används bland annat för DNS-frågor och realtidskommunikation. Vilket som passar beror på applikationens krav.</p>
+<h3>Vanliga ports</h3>
+<table><tr><th>Port</th><th>Protocol</th><th>Vanlig tjänst</th></tr><tr><td>20/21</td><td>TCP</td><td>FTP data/control</td></tr><tr><td>22</td><td>TCP</td><td>SSH</td></tr><tr><td>23</td><td>TCP</td><td>Telnet</td></tr><tr><td>25</td><td>TCP</td><td>SMTP</td></tr><tr><td>53</td><td>TCP/UDP</td><td>DNS</td></tr><tr><td>67/68</td><td>UDP</td><td>DHCP</td></tr><tr><td>80</td><td>TCP</td><td>HTTP</td></tr><tr><td>110</td><td>TCP</td><td>POP3</td></tr><tr><td>143</td><td>TCP</td><td>IMAP</td></tr><tr><td>443</td><td>TCP</td><td>HTTPS</td></tr><tr><td>445</td><td>TCP</td><td>SMB</td></tr><tr><td>3306</td><td>TCP</td><td>MySQL default port</td></tr><tr><td>3389</td><td>TCP</td><td>RDP</td></tr></table>
+<h3>DNS och DHCP</h3><p><strong>DNS (Domain Name System)</strong> slår upp namn, exempelvis <code>example.com</code>, och hittar tillhörande IP-information. <strong>DHCP (Dynamic Host Configuration Protocol)</strong> kan automatiskt ge en klient IP address, subnet/prefix, gateway och DNS-server.</p>
+<pre><code>dig example.com
+nslookup example.com
+getent hosts example.com</code></pre>
+<h3>Switching och routing</h3>
+<p>En <strong>switch</strong> kopplar samman enheter i ett lokalt nätverk och skickar Ethernet frames med hjälp av MAC addresses. En <strong>router</strong> kopplar samman olika IP-nätverk och skickar packets baserat på IP addresses och routing table.</p>
+<h3>OSI-modellen</h3>
+<table><tr><th>Layer</th><th>Namn</th><th>Funktion / exempel</th></tr><tr><td>7</td><td>Application</td><td>Nätverkstjänster för program: HTTP, DNS, SMTP.</td></tr><tr><td>6</td><td>Presentation</td><td>Dataformat, kodning och kryptering.</td></tr><tr><td>5</td><td>Session</td><td>Hantering av kommunikationssessioner.</td></tr><tr><td>4</td><td>Transport</td><td>Transport mellan endpoints: TCP, UDP.</td></tr><tr><td>3</td><td>Network</td><td>Logisk adressering och routing: IP.</td></tr><tr><td>2</td><td>Data Link</td><td>Frames och lokal adressering: Ethernet, MAC.</td></tr><tr><td>1</td><td>Physical</td><td>Fysiska signaler, kablar, radio och kontakter.</td></tr></table>
+<p>OSI är en konceptuell modell. Internetprotokoll beskrivs också ofta med TCP/IP-modellen.</p>
+<h3>Linux networking commands</h3>
+<pre><code>ip addr
+ip route
+ping -c 4 1.1.1.1
+ping -c 4 example.com
+traceroute example.com
+ss -tuln
+hostname
+hostname -I
+curl https://example.com
+wget https://example.com/file
+nmcli</code></pre>
+<p><code>ip addr</code> visar interfaces och adresser. <code>ip route</code> visar routing table. <code>ping</code> testar nåbarhet. <code>ss -tuln</code> visar listening sockets. <code>curl</code> gör requests och <code>nmcli</code> hanterar NetworkManager.</p>
+<h3>Metodisk nätverksfelsökning</h3><ol><li>Kontrollera att nätverksinterfacet är uppe.</li><li>Kontrollera att enheten har en rimlig IP address och prefix.</li><li>Kontrollera routing table och default gateway.</li><li>Testa kontakt med gateway.</li><li>Testa en publik IP address.</li><li>Testa DNS genom att slå upp ett domain name.</li><li>Kontrollera firewall och tjänster om problemet kvarstår.</li></ol>
+</section>
+
+<section class="chapter" id="storage">
+<h2>12. Storage och filesystems</h2>
+<p>Ett <strong>filesystem</strong> bestämmer hur data organiseras på en lagringsenhet. En <strong>partition</strong> är en avgränsad del av en disk. En partition kan innehålla ett filesystem, swap eller annan data. Partition och filesystem är alltså inte samma sak.</p>
+<table><tr><th>Filesystem</th><th>Vanlig användning</th></tr><tr><td>ext4</td><td>Vanligt Linux-filesystem.</td></tr><tr><td>Btrfs</td><td>Linux-filesystem med bland annat snapshots och checksumming-funktioner.</td></tr><tr><td>XFS</td><td>Linux-servrar och arbetsstationer.</td></tr><tr><td>FAT32</td><td>Bred kompatibilitet och vissa boot-/USB-användningar.</td></tr><tr><td>exFAT</td><td>Externa lagringsenheter och kompatibilitet mellan system.</td></tr><tr><td>NTFS</td><td>Standardfilesystem på moderna Windows-installationer.</td></tr></table>
+<h3>Device names</h3><pre><code>/dev/sda
+ ├── /dev/sda1
+ ├── /dev/sda2
+ └── /dev/sda3</code></pre>
+<p><code>/dev/sda</code> är en hel disk och <code>/dev/sda1</code> är en partition på den. NVMe-enheter har ofta namn som <code>/dev/nvme0n1</code> och partitioner som <code>/dev/nvme0n1p1</code>.</p>
+<h3>Mounting och unmounting</h3>
+<p>Linux kopplar in ett filesystem i katalogträdet med en <strong>mount point</strong>.</p>
+<pre><code>sudo mount /dev/sdb1 /mnt
+findmnt
+sudo umount /mnt</code></pre>
+<p>Kommandot stavas <code>umount</code>, inte <code>unmount</code>. En enhet bör normalt avmonteras innan den kopplas bort fysiskt.</p>
+<h3>Storage commands</h3><pre><code>lsblk
+lsblk -f
+df -h
+du -sh ~/Downloads
+blkid
+findmnt
+swapon --show
+free -h</code></pre>
+<p><code>lsblk -f</code> visar bland annat filesystem types, labels och UUIDs. <code>df -h</code> visar använt/tillgängligt utrymme per monterat filesystem. <code>du -sh</code> visar storleken på en katalog.</p>
+<h3>/etc/fstab</h3><p><code>/etc/fstab</code> är en configuration file som beskriver filesystems som ska monteras automatiskt. En post innehåller normalt device/UUID, mount point, filesystem type, mount options, backup-fält och fsck-ordning.</p>
+<pre><code>UUID=xxxx-xxxx /mnt/storage ext4 defaults 0 2</code></pre>
+<div class="callout warn">Fel i <code>/etc/fstab</code> kan orsaka problem vid boot. Kontrollera alltid syntaxen och testa ändringar försiktigt.</div>
+<h3>Swap och virtual memory</h3><p>RAM används som snabbt arbetsminne. Swap är lagringsutrymme som Linux kan använda som backing store för minnessidor när det behövs. Swap kan vara en partition eller en file. Det är betydligt långsammare än RAM och är inte en direkt ersättning för mer RAM.</p>
+<h3>Backups</h3><table><tr><th>Typ</th><th>Förklaring</th></tr><tr><td>Full backup</td><td>Kopierar all vald data.</td></tr><tr><td>Incremental backup</td><td>Kopierar ändringar sedan senaste backupen.</td></tr><tr><td>Differential backup</td><td>Kopierar ändringar sedan senaste full backupen.</td></tr></table>
+<p>3-2-1-regeln: ha 3 kopior av viktig data, på 2 olika typer av lagring, med 1 kopia off-site. Testa att återställa data – en backup är inte bevisat användbar förrän restore fungerar.</p>
+</section>
+
+<section class="chapter" id="boot">
+<h2>13. Bootprocessen och hårdvara</h2>
+<ol><li><strong>Power on:</strong> datorn får ström.</li><li><strong>POST:</strong> firmware testar och initierar grundläggande hårdvara.</li><li><strong>UEFI/BIOS:</strong> firmware väljer en bootbar enhet enligt boot order.</li><li><strong>Bootloader:</strong> exempelvis GRUB startar och kan visa en meny.</li><li><strong>Kernel:</strong> Linux-kärnan laddas och initierar hårdvara och grundläggande systemfunktioner.</li><li><strong>Init system:</strong> exempelvis systemd startar services och system targets.</li><li><strong>Login:</strong> användaren får en login screen eller terminal.</li></ol>
+<h3>BIOS jämfört med UEFI</h3>
+<table><tr><th>BIOS (legacy)</th><th>UEFI</th></tr><tr><td>Äldre firmwaremodell.</td><td>Modern firmwaremodell.</td></tr><tr><td>Traditionellt kopplad till MBR-boot.</td><td>Vanligtvis kopplad till GPT och EFI System Partition.</td></tr><tr><td>Mer begränsad funktionalitet.</td><td>Stöd för moderna bootfunktioner och Secure Boot.</td></tr></table>
+<h3>MBR och GPT</h3><p><strong>MBR (Master Boot Record)</strong> är en äldre partition table med begränsningar, bland annat traditionell gräns på cirka 2 TiB med 512-byte logical sectors och fyra primary partition entries. <strong>GPT (GUID Partition Table)</strong> är modernare, stöder stora diskar och fler partitioner samt har redundant partition table information.</p>
+<h3>GRUB och firmware</h3><p><strong>GRUB</strong> (GRand Unified Bootloader) är en vanlig Linux bootloader. Den kan visa en OS-meny, ladda kernel och skicka boot parameters. Firmware är låg-nivåprogramvara som finns i hårdvara, exempelvis motherboard UEFI, SSD, GPU och router. Firmware updates bör göras försiktigt.</p>
+<h3>Drivers och hårdvaruinformation</h3><p>En driver låter operativsystemet kommunicera med en hårdvaruenhet. Många Linux-drivers ingår i kernel, medan viss hårdvara kan kräva extra eller proprietary drivers.</p><pre><code>lspci
+lsusb
+lspci -k
+uname -r</code></pre>
+</section>
+
+<section class="chapter" id="pipes">
+<h2>14. Pipes, redirection och command chaining</h2>
+<h3>Pipe <code>|</code></h3><p>En pipe skickar standard output från ett kommando till standard input för nästa kommando.</p>
+<pre><code>ls -la | grep ".txt"
+sort file.txt | uniq
+cat file.txt | sort | uniq</code></pre>
+<p>Det sista exemplet sorterar raderna först. <code>uniq</code> tar normalt bara bort upprepade rader som ligger intill varandra, därför är kombinationen med <code>sort</code> användbar.</p>
+<h3>Redirection</h3>
+<table><tr><th>Operator</th><th>Funktion</th></tr><tr><td><code>&gt;</code></td><td>Skickar output till fil och ersätter tidigare innehåll.</td></tr><tr><td><code>&gt;&gt;</code></td><td>Lägger till output i slutet av filen.</td></tr><tr><td><code>&lt;</code></td><td>Läser input från en fil.</td></tr><tr><td><code>2&gt;</code></td><td>Skickar standard error till en fil.</td></tr><tr><td><code>2&gt;&amp;1</code></td><td>Skickar standard error till samma destination som standard output vid den punkten i redirection-kedjan.</td></tr></table>
+<pre><code>ls > files.txt
+echo "Hello" >> notes.txt
+cat < notes.txt
+command > output.txt 2> errors.txt</code></pre>
+<h3>Standard streams</h3><table><tr><th>Stream</th><th>Number</th><th>Betydelse</th></tr><tr><td>stdin</td><td>0</td><td>Standard input</td></tr><tr><td>stdout</td><td>1</td><td>Standard output</td></tr><tr><td>stderr</td><td>2</td><td>Standard error</td></tr></table>
+<h3>Command chaining</h3><pre><code>mkdir test; cd test; touch file.txt
+mkdir test && cd test
+mkdir test || echo "Something went wrong"</code></pre>
+<table><tr><th>Operator</th><th>Funktion</th></tr><tr><td><code>;</code></td><td>Kör nästa kommando oavsett om föregående lyckades.</td></tr><tr><td><code>&amp;&amp;</code></td><td>Kör nästa kommando bara om föregående lyckades.</td></tr><tr><td><code>||</code></td><td>Kör nästa kommando om föregående misslyckades.</td></tr><tr><td><code>|</code></td><td>Skickar output vidare som input.</td></tr></table>
+</section>
+
+<section class="chapter" id="archives">
+<h2>15. Archives, compression, encoding och hashing</h2>
+<h3>tar och compression</h3><p>Archiving samlar filer i ett paket. Compression minskar datamängden. Det är två olika saker, även om de ofta används tillsammans.</p>
+<pre><code>tar -cf archive.tar folder/
+tar -xf archive.tar
+tar -czf archive.tar.gz folder/
+tar -xzf archive.tar.gz
+gzip file.txt
+gunzip file.txt.gz
+zip archive.zip file.txt
+unzip archive.zip</code></pre>
+<table><tr><th>Format</th><th>Beskrivning</th></tr><tr><td><code>.tar</code></td><td>Archive, normalt utan compression.</td></tr><tr><td><code>.tar.gz</code></td><td>TAR archive komprimerat med gzip.</td></tr><tr><td><code>.gz</code></td><td>Gzip-komprimerad fil.</td></tr><tr><td><code>.zip</code></td><td>Archive med compression.</td></tr><tr><td><code>.xz</code></td><td>Compression format.</td></tr><tr><td><code>.7z</code></td><td>7-Zip archive format.</td></tr></table>
+<h3>Encoding vs encryption vs hashing</h3>
+<table><tr><th>Begrepp</th><th>Vad det gör</th><th>Exempel</th></tr><tr><td>Encoding</td><td>Ändrar representation av data; är inte till för att hålla data hemlig.</td><td>Base64</td></tr><tr><td>Encryption</td><td>Skyddar confidentiality; data kan dekrypteras med rätt key.</td><td>AES, RSA</td></tr><tr><td>Hashing</td><td>Skapar en digest av data; utformat för att vara envägs.</td><td>SHA-256, SHA-512</td></tr></table>
+<pre><code>base64 file.txt
+base64 -d encoded.txt
+sha256sum file.txt</code></pre>
+<p>Base64 är inte encryption. En hash kan användas för att kontrollera om data har förändrats, men hashning i sig är inte samma sak som kryptering.</p>
+</section>
+
+<section class="chapter" id="ssh">
+<h2>16. SSH och remote access</h2>
+<p><strong>SSH (Secure Shell)</strong> är ett protokoll för säker fjärrinloggning och administration över ett nätverk. Standardporten är TCP 22.</p>
+<pre><code>ssh username@192.168.1.100</code></pre>
+<h3>SSH keys</h3><p>Key-based authentication använder ett key pair: en private key som hålls hemlig och en public key som kan placeras på servern. Public keys läggs ofta i <code>~/.ssh/authorized_keys</code>. Skydda private key med lämpliga permissions och dela den aldrig.</p>
+<h3>Filöverföring</h3><pre><code>scp file.txt username@192.168.1.100:~
+sftp username@192.168.1.100</code></pre>
+<table><tr><th>Protocol / tool</th><th>Syfte</th></tr><tr><td>SSH</td><td>Remote command-line access.</td></tr><tr><td>SCP</td><td>Filkopiering över SSH.</td></tr><tr><td>SFTP</td><td>File transfer över SSH.</td></tr><tr><td>FTP</td><td>Äldre file transfer-protokoll utan inbyggd kryptering.</td></tr></table>
+</section>
+
+<section class="chapter" id="shell">
+<h2>17. Environment variables och scripting</h2>
+<h3>Environment variables</h3><p>Environment variables innehåller värden som program kan läsa. Några vanliga är:</p><pre><code>echo $HOME
+echo $USER
+echo $PATH</code></pre>
+<p><code>PATH</code> är en lista över kataloger som shell söker i när du skriver ett kommando utan att ange hela sökvägen. Katalogerna separeras med kolon.</p>
+<h3>Skapa variabler</h3><pre><code>NAME="Linux"
+echo "$NAME"
+export NAME="Linux"</code></pre>
+<p><code>export</code> gör variabeln tillgänglig för child processes som startas från shell-sessionen.</p>
+<h3>Shell configuration files</h3><table><tr><th>File</th><th>Vanlig funktion</th></tr><tr><td><code>~/.bashrc</code></td><td>Konfiguration för interaktiva Bash-shells.</td></tr><tr><td><code>~/.bash_profile</code></td><td>Konfiguration för login shell.</td></tr><tr><td><code>/etc/profile</code></td><td>System-wide login shell configuration.</td></tr><tr><td><code>/etc/environment</code></td><td>System-wide environment variables på system som använder filen.</td></tr></table>
+<h3>Shell scripts</h3><p>Ett shell script är en fil med kommandon som körs i följd. Shebang anger vilken interpreter som ska köra scriptet.</p><pre><code>#!/bin/bash
+echo "Hello, Linux!"
+echo "Your username is:"
+whoami</code></pre>
+<p>Spara exempelvis som <code>hello.sh</code>, gör filen executable med <code>chmod +x hello.sh</code> och kör <code>./hello.sh</code>.</p>
+<h3>Variables, input, if och loops</h3><pre><code>#!/bin/bash
+NAME="Linux"
+echo "Hello, $NAME"
+
+echo "Enter your name:"
+read NAME
+echo "Hello, $NAME"
+
+if [ "$USER" = "root" ]; then
+    echo "You are root"
+else
+    echo "You are a regular user"
+fi
+
+for i in 1 2 3 4 5
+do
+    echo "$i"
+done</code></pre>
+<p>Du behöver kanske inte skriva avancerade scripts på provet, men förstå hur en enkel scriptfil körs, hur variabler fungerar och vad en if-sats eller loop gör.</p>
+</section>
+
+<section class="chapter" id="security">
+<h2>18. Linux security</h2>
+<h3>Least privilege</h3><p>Användare och program ska bara ha de permissions som behövs för uppgiften. Det minskar risken för oavsiktliga ändringar och begränsar skadan om ett program eller konto komprometteras.</p>
+<h3>Firewall</h3><p>En firewall kontrollerar nätverkstrafik utifrån regler. Fedora använder ofta <code>firewalld</code>.</p><pre><code>sudo firewall-cmd --state
+sudo firewall-cmd --list-all
+sudo firewall-cmd --list-services</code></pre>
+<h3>Uppdateringar och säkra vanor</h3><ul><li>Installera säkerhetsuppdateringar regelbundet.</li><li>Använd starka och unika passwords.</li><li>Kontrollera källan till software innan installation.</li><li>Kör inte okända scripts blint, särskilt inte med <code>sudo</code>.</li><li>Använd permissions och least privilege.</li><li>Gör backups och testa restore.</li><li>Stäng av tjänster som inte behövs när det är lämpligt.</li></ul>
+</section>
+
+<section class="chapter" id="troubleshooting">
+<h2>19. Troubleshooting och diagnostics</h2>
+<p>En bra tekniker felsöker systematiskt i stället för att slumpmässigt ändra inställningar.</p>
+<ol><li>Identifiera och avgränsa problemet.</li><li>Samla information och observera felmeddelanden.</li><li>Formulera en möjlig förklaring.</li><li>Testa förklaringen med en relevant kontroll.</li><li>Gör en kontrollerad ändring.</li><li>Verifiera att problemet är löst.</li><li>Dokumentera vad som ändrades och resultatet.</li></ol>
+<table><tr><th>Problem</th><th>Verktyg att börja med</th></tr><tr><td>Hittar inte fil</td><td><code>find</code>, <code>locate</code>, <code>pwd</code></td></tr><tr><td>Permission denied</td><td><code>ls -l</code>, <code>id</code>, <code>chmod</code>, <code>chown</code></td></tr><tr><td>Disk full</td><td><code>df -h</code>, <code>du -sh</code></td></tr><tr><td>Hög CPU usage</td><td><code>top</code>, <code>htop</code>, <code>ps aux</code></td></tr><tr><td>Hög RAM usage</td><td><code>free -h</code>, <code>ps aux</code></td></tr><tr><td>Nätverk fungerar inte</td><td><code>ip addr</code>, <code>ip route</code>, <code>ping</code></td></tr><tr><td>DNS-problem</td><td><code>dig</code>, <code>nslookup</code>, <code>getent hosts</code></td></tr><tr><td>Service fungerar inte</td><td><code>systemctl status</code>, <code>journalctl -u</code></td></tr><tr><td>Bootproblem</td><td><code>journalctl -b</code>, <code>dmesg</code></td></tr><tr><td>Disk inte monterad</td><td><code>lsblk</code>, <code>findmnt</code>, <code>blkid</code></td></tr></table>
+<h3>Exit status</h3><p>Kommandon returnerar en exit status. Vanligtvis betyder <code>0</code> success och ett annat värde att något gick fel eller att resultatet inte blev det förväntade.</p><pre><code>ls
+echo $?</code></pre>
+<p><code>$?</code> innehåller exit status från det senast körda kommandot. Det är användbart tillsammans med <code>&amp;&amp;</code> och <code>||</code>.</p>
+</section>
+
+<section class="chapter" id="intermediate">
+<h2>20. Intermediate Linux concepts</h2>
+<h3>Text processing: wc, sort, uniq, cut, tr, awk, sed</h3>
+<table><tr><th>Command</th><th>Funktion</th><th>Exempel</th></tr>
+<tr><td><code>wc</code></td><td>Räknar lines, words och bytes.</td><td><code>wc -l file.txt</code></td></tr>
+<tr><td><code>sort</code></td><td>Sorterar rader.</td><td><code>sort -n numbers.txt</code></td></tr>
+<tr><td><code>uniq</code></td><td>Tar bort intilliggande duplicerade rader.</td><td><code>sort file | uniq</code></td></tr>
+<tr><td><code>cut</code></td><td>Väljer fält eller teckenpositioner.</td><td><code>cut -d ":" -f 1 /etc/passwd</code></td></tr>
+<tr><td><code>tr</code></td><td>Översätter eller tar bort tecken.</td><td><code>echo hello | tr 'a-z' 'A-Z'</code></td></tr>
+<tr><td><code>awk</code></td><td>Bearbetar text rad för rad och arbetar med fält.</td><td><code>awk '{print $1}' file.txt</code></td></tr>
+<tr><td><code>sed</code></td><td>Stream editor för textändringar.</td><td><code>sed 's/hello/bye/g' file.txt</code></td></tr></table>
+<h3>Wildcards och specialtecken</h3><table><tr><th>Tecken</th><th>Betydelse</th></tr><tr><td><code>*</code></td><td>Matchar noll eller fler tecken.</td></tr><tr><td><code>?</code></td><td>Matchar exakt ett tecken.</td></tr><tr><td><code>[]</code></td><td>Matchar ett tecken från en lista eller ett intervall.</td></tr><tr><td><code>~</code></td><td>Home directory.</td></tr><tr><td><code>.</code></td><td>Current directory.</td></tr><tr><td><code>..</code></td><td>Parent directory.</td></tr></table>
+<pre><code>ls *.txt
+ls file?.txt
+ls file[123].txt</code></pre>
+<h3>Quotes</h3><pre><code>echo '$HOME'   # skriver den bokstavliga texten $HOME
+echo "$HOME"   # expanderar variabeln
+echo $HOME     # expanderar också, men kan påverkas av word splitting/globbing</code></pre>
+<p>Single quotes bevarar innehållet bokstavligt. Double quotes tillåter bland annat variable expansion men skyddar i normalfallet mot word splitting och glob expansion. Det är därför ofta bra att skriva <code>"$VARIABLE"</code>.</p>
+<h3>Special files</h3><table><tr><th>Path</th><th>Funktion</th></tr><tr><td><code>/dev/null</code></td><td>Kasserar data som skrivs dit.</td></tr><tr><td><code>/dev/zero</code></td><td>Ger noll-byte vid läsning.</td></tr><tr><td><code>/dev/random</code></td><td>Kernel-interface för random data.</td></tr><tr><td><code>/proc</code></td><td>Virtuell information om processer och kernel.</td></tr><tr><td><code>/sys</code></td><td>Virtuell information om kernel och hårdvara.</td></tr></table>
+<pre><code>command > /dev/null 2>&1
+command 2>/dev/null</code></pre>
+<p>Det första exemplet skickar både stdout och stderr till <code>/dev/null</code>. Det andra kastar bara stderr.</p>
+<h3>Symbolic links och hard links</h3><p>En <strong>symbolic link (symlink)</strong> är en referens till en annan path:</p><pre><code>ln -s original.txt shortcut.txt</code></pre>
+<p>Om originalfilen flyttas eller tas bort kan symlinken sluta fungera. En <strong>hard link</strong> är en ytterligare directory entry som pekar på samma inode:</p><pre><code>ln original.txt hardlink.txt
+ls -li</code></pre>
+<p>Ändringar i filinnehållet syns via båda namnen eftersom de pekar på samma underliggande fil-data. Hard links kan normalt inte gå över filesystem-gränser och vanliga användare får normalt inte skapa hard links till directories.</p>
+<h3>Inodes och metadata</h3><p>En inode innehåller metadata som permissions, ownership, file size, timestamps och pekare till datablock. Filnamnet ligger i en directory entry som pekar på inoden.</p><pre><code>stat file.txt
+ls -li
+file file.txt
+strings program
+xxd file</code></pre>
+<h3>Cron – scheduled tasks</h3><p>Cron kör kommandon enligt ett schema. Öppna din crontab med <code>crontab -e</code> och visa den med <code>crontab -l</code>.</p><pre><code># minut timme dag-i-månad månad veckodag kommando
+0 3 * * * /home/user/backup.sh
+*/5 * * * * /home/user/check.sh</code></pre>
+<p>Den första körs varje dag klockan 03:00. Den andra körs var femte minut. Cron-formatet har fem tidsfält.</p>
+<h3>umask</h3><p><code>umask</code> anger vilka permissions som ska maskeras bort från standardvärden när nya filer och directories skapas. Ett vanligt värde är <code>0022</code>. Typiska startvärden är <code>666</code> för filer och <code>777</code> för directories. Med umask 022 blir resultatet normalt 644 för filer och 755 för directories.</p><pre><code>umask</code></pre>
+<h3>sudoers</h3><p><code>/etc/sudoers</code> och filer under <code>/etc/sudoers.d/</code> styr vilka användare som får använda sudo och vilka kommandon de får köra. Redigera med <code>visudo</code> så att syntaxen kontrolleras:</p><pre><code>sudo visudo</code></pre>
+</section>
+
+<section class="chapter" id="cheatsheet">
+<h2>Kommandoreferens – snabb repetition</h2>
+<table><tr><th>Område</th><th>Kommandon</th></tr>
+<tr><td>Navigation</td><td><code>pwd</code>, <code>cd</code>, <code>ls</code></td></tr>
+<tr><td>Files</td><td><code>cat</code>, <code>less</code>, <code>head</code>, <code>tail</code>, <code>touch</code></td></tr>
+<tr><td>File management</td><td><code>cp</code>, <code>mv</code>, <code>rm</code>, <code>mkdir</code></td></tr>
+<tr><td>Searching</td><td><code>find</code>, <code>grep</code>, <code>locate</code></td></tr>
+<tr><td>Permissions</td><td><code>chmod</code>, <code>chown</code>, <code>chgrp</code>, <code>umask</code></td></tr>
+<tr><td>Users</td><td><code>whoami</code>, <code>id</code>, <code>groups</code>, <code>who</code></td></tr>
+<tr><td>Processes</td><td><code>ps</code>, <code>top</code>, <code>kill</code>, <code>pgrep</code></td></tr>
+<tr><td>Networking</td><td><code>ip</code>, <code>ping</code>, <code>ss</code>, <code>curl</code>, <code>dig</code></td></tr>
+<tr><td>Archives</td><td><code>tar</code>, <code>gzip</code>, <code>zip</code>, <code>unzip</code></td></tr>
+<tr><td>Text processing</td><td><code>sort</code>, <code>uniq</code>, <code>cut</code>, <code>tr</code>, <code>wc</code>, <code>awk</code>, <code>sed</code></td></tr>
+<tr><td>System</td><td><code>uname</code>, <code>uptime</code>, <code>free</code>, <code>df</code>, <code>du</code></td></tr>
+<tr><td>Services</td><td><code>systemctl</code>, <code>journalctl</code></td></tr>
+<tr><td>Packages</td><td><code>dnf</code>, <code>apt</code>, <code>rpm</code></td></tr>
+<tr><td>Remote access</td><td><code>ssh</code>, <code>scp</code>, <code>sftp</code></td></tr>
+<tr><td>Storage</td><td><code>lsblk</code>, <code>blkid</code>, <code>mount</code>, <code>umount</code></td></tr></table>
+<h3>Skill checklist</h3><p>Markera de områden du känner dig trygg med. Framstegen sparas i den här webbläsaren.</p>
+<div id="checklist">
+<label class="check"><input type="checkbox"> Jag kan navigera med absolute och relative paths.</label>
+<label class="check"><input type="checkbox"> Jag kan använda <code>find</code> och <code>grep</code> för att hitta filer och text.</label>
+<label class="check"><input type="checkbox"> Jag kan förklara root, sudo, UID och groups.</label>
+<label class="check"><input type="checkbox"> Jag kan läsa och ändra permissions med <code>chmod</code>.</label>
+<label class="check"><input type="checkbox"> Jag förstår processes, signals och services.</label>
+<label class="check"><input type="checkbox"> Jag kan förklara DNF, APT, RPM och repositories.</label>
+<label class="check"><input type="checkbox"> Jag kan förklara IP, DNS, DHCP, TCP, UDP och ports.</label>
+<label class="check"><input type="checkbox"> Jag kan skilja mellan switch, router och OSI-lagren.</label>
+<label class="check"><input type="checkbox"> Jag förstår partitions, filesystems, mounting och swap.</label>
+<label class="check"><input type="checkbox"> Jag kan beskriva bootprocessen från UEFI till login.</label>
+<label class="check"><input type="checkbox"> Jag kan använda pipes, redirection och command chaining.</label>
+<label class="check"><input type="checkbox"> Jag kan tolka logs och felsöka metodiskt.</label>
+</div>
+</section>
+
+<section class="chapter" id="challenges">
+<h2>Praktiska Linux-utmaningar</h2>
+<p>Utmaningarna är inspirerade av arbetssättet i OverTheWire Bandit: du får ett mål och behöver själv välja kommandon. Börja utan att öppna hints. Övningarna är avsedda för en egen testkatalog eller en labb-VM.</p>
+<div class="callout warn"><strong>Labbsäkerhet:</strong> skapa en separat katalog för övningarna. Använd inte riktiga systemfiler som testmaterial. Kör inte destruktiva kommandon mot systemkataloger eller riktiga partitions.</div>
+
+<div class="card challenge"><span class="tag">Nivå 1 · Beginner</span><h3>1. Hitta den gömda filen</h3><p>Skapa eller använd en övningskatalog där en fil med namnet <code>secret.txt</code> ligger någonstans i en underkatalog. Hitta filens fullständiga path utan att klicka dig igenom katalogerna manuellt.</p><details><summary>Hint</summary>Använd <code>find</code> med startkatalog och <code>-name</code>.</details><details><summary>Lösningsförslag</summary><pre><code>find ~/linux-lab -name "secret.txt"</code></pre><p>Byt <code>~/linux-lab</code> mot din övningskatalog.</p></details></div>
+
+<div class="card challenge"><span class="tag">Nivå 1 · Beginner</span><h3>2. Läs en fil sida för sida</h3><p>Öppna en lång textfil så att du kan scrolla genom den och avsluta visningen utan att stänga terminalen.</p><details><summary>Hint</summary>Testa <code>less</code>. Vilken tangent avslutar?</details><details><summary>Lösningsförslag</summary><pre><code>less longfile.txt
+# tryck q för att avsluta</code></pre></details></div>
+
+<div class="card challenge"><span class="tag">Nivå 1 · Beginner</span><h3>3. Gör ett script körbart</h3><p>Du har filen <code>hello.sh</code>. Undersök permissions och lägg till execute permission för ägaren, utan att ändra övriga permissions.</p><details><summary>Hint</summary>Jämför <code>ls -l</code> och symbolisk notation i <code>chmod</code>.</details><details><summary>Lösningsförslag</summary><pre><code>ls -l hello.sh
+chmod u+x hello.sh
+ls -l hello.sh</code></pre></details></div>
+
+<div class="card challenge"><span class="tag">Nivå 1 · Beginner</span><h3>4. Räkna rader</h3><p>Ta reda på hur många rader en fil innehåller utan att skriva ut hela filen.</p><details><summary>Hint</summary>Vilket textverktyg har optionen <code>-l</code>?</details><details><summary>Lösningsförslag</summary><pre><code>wc -l file.txt</code></pre></details></div>
+
+<div class="card challenge"><span class="tag mid">Nivå 2 · Intermediate</span><h3>5. Hitta ERROR i en logg</h3><p>Sök efter alla rader som innehåller <code>ERROR</code> i <code>application.log</code>. Sökningen ska ignorera versaler/gemener och visa radnummer.</p><details><summary>Hint</summary>Du behöver två options till <code>grep</code>.</details><details><summary>Lösningsförslag</summary><pre><code>grep -in "ERROR" application.log</code></pre></details></div>
+
+<div class="card challenge"><span class="tag mid">Nivå 2 · Intermediate</span><h3>6. Hitta stora filer</h3><p>Hitta vanliga filer större än 50 MB i din labbkatalog.</p><details><summary>Hint</summary>Använd <code>find</code>, <code>-type f</code> och <code>-size</code>.</details><details><summary>Lösningsförslag</summary><pre><code>find ~/linux-lab -type f -size +50M</code></pre></details></div>
+
+<div class="card challenge"><span class="tag mid">Nivå 2 · Intermediate</span><h3>7. Sortera och ta bort duplicerade rader</h3><p>En fil innehåller många rader, inklusive upprepningar. Skriv ut varje unikt radvärde en gång, i sorterad ordning.</p><details><summary>Hint</summary><code>uniq</code> tar normalt bara bort intilliggande dubbletter.</details><details><summary>Lösningsförslag</summary><pre><code>sort file.txt | uniq</code></pre></details></div>
+
+<div class="card challenge"><span class="tag mid">Nivå 2 · Intermediate</span><h3>8. Extrahera första fältet</h3><p>Filen <code>users.txt</code> innehåller fält separerade med kolon. Skriv ut endast första fältet på varje rad.</p><details><summary>Hint</summary>Använd <code>cut</code>, delimiter och field number.</details><details><summary>Lösningsförslag</summary><pre><code>cut -d ":" -f 1 users.txt</code></pre></details></div>
+
+<div class="card challenge"><span class="tag mid">Nivå 2 · Intermediate</span><h3>9. Räkna matchningar med pipe</h3><p>Räkna hur många rader i <code>*.log</code> som innehåller ordet <code>failed</code>, utan att skilja på stora och små bokstäver.</p><details><summary>Hint</summary>Kombinera <code>grep</code> med <code>wc -l</code>. Tänk på vad som händer om en fil inte matchar.</details><details><summary>Lösningsförslag</summary><pre><code>grep -ih "failed" *.log | wc -l</code></pre><p>Detta räknar matchande rader i de filer som matchar globben.</p></details></div>
+
+<div class="card challenge"><span class="tag mid">Nivå 2 · Intermediate</span><h3>10. Förstå redirection</h3><p>Kör ett kommando som ger både normal output och ett felmeddelande. Spara normal output i <code>output.txt</code> och felmeddelandet i <code>errors.txt</code>.</p><details><summary>Hint</summary>Standard output är file descriptor 1 och standard error är 2.</details><details><summary>Lösningsförslag</summary><pre><code>command > output.txt 2> errors.txt</code></pre><p>Byt <code>command</code> mot ett lämpligt testkommando.</p></details></div>
+
+<div class="card challenge"><span class="tag mid">Nivå 2 · Intermediate</span><h3>11. Kontrollera nätverksanslutning</h3><p>Undersök om datorn har en IP address, vilken default gateway den använder och om den kan nå en publik IP address.</p><details><summary>Hint</summary>Använd <code>ip addr</code>, <code>ip route</code> och <code>ping</code>.</details><details><summary>Lösningsförslag</summary><pre><code>ip addr
+ip route
+ping -c 4 1.1.1.1</code></pre></details></div>
+
+<div class="card challenge"><span class="tag mid">Nivå 2 · Intermediate</span><h3>12. Kontrollera DNS</h3><p>Ta reda på om ett domain name kan slås upp. Jämför med att pinga en IP address direkt.</p><details><summary>Hint</summary>Prova <code>dig</code> eller <code>getent hosts</code>.</details><details><summary>Lösningsförslag</summary><pre><code>dig example.com
+getent hosts example.com
+ping -c 4 1.1.1.1
+ping -c 4 example.com</code></pre><p>Om IP-testet fungerar men namnuppslagningen inte gör det kan DNS vara en del av problemet.</p></details></div>
+
+<div class="card challenge"><span class="tag mid">Nivå 2 · Intermediate</span><h3>13. Undersök en service</h3><p>Välj en service som finns på din testmaskin. Kontrollera status och visa loggar för just den servicen.</p><details><summary>Hint</summary><code>systemctl status</code> och <code>journalctl -u</code>.</details><details><summary>Lösningsförslag</summary><pre><code>systemctl status NetworkManager
+journalctl -u NetworkManager</code></pre><p>Servicenamnet kan skilja sig mellan distributioner.</p></details></div>
+
+<div class="card challenge"><span class="tag mid">Nivå 2 · Intermediate</span><h3>14. Kontrollera diskutrymme</h3><p>Ta reda på hur mycket utrymme som är ledigt på monterade filesystems och hur stor din labbkatalog är.</p><details><summary>Hint</summary>Skilj mellan <code>df</code> och <code>du</code>.</details><details><summary>Lösningsförslag</summary><pre><code>df -h
+du -sh ~/linux-lab</code></pre></details></div>
+
+<div class="card challenge"><span class="tag hard">Nivå 3 · Advanced</span><h3>15. Hitta en fil med rätt owner</h3><p>I en labbkatalog finns flera filer med olika ägare. Hitta alla vanliga filer som ägs av användaren <code>student</code>.</p><details><summary>Hint</summary>Använd <code>find</code> med <code>-type f</code> och <code>-user</code>.</details><details><summary>Lösningsförslag</summary><pre><code>find ~/linux-lab -type f -user student</code></pre></details></div>
+
+<div class="card"><span class="tag hard">Nivå 3 · Advanced</span><h3>16. Undersök filtyp och innehåll</h3><p>Du får en fil med ett missvisande filnamn. Identifiera filtypen och se om det finns läsbar text inuti utan att köra filen.</p><details><summary>Hint</summary>Testa <code>file</code> och <code>strings</code>.</details><details><summary>Lösningsförslag</summary><pre><code>file mystery
+strings mystery | head</code></pre></details></div>
+
+<div class="card"><span class="tag hard">Nivå 3 · Advanced</span><h3>17. Hitta en specifik kolumn med awk</h3><p>En fil innehåller flera whitespace-separerade kolumner. Skriv ut endast den andra kolumnen.</p><details><summary>Hint</summary>Awk använder <code>$1</code>, <code>$2</code> och så vidare för fält.</details><details><summary>Lösningsförslag</summary><pre><code>awk '{print $2}' data.txt</code></pre></details></div>
+
+<div class="card"><span class="tag hard">Nivå 3 · Advanced</span><h3>18. Skapa och verifiera en checksum</h3><p>Skapa en SHA-256 checksum för en testfil. Ändra sedan filen och skapa en ny checksum. Jämför resultaten och förklara varför de skiljer sig.</p><details><summary>Hint</summary>Använd <code>sha256sum</code>.</details><details><summary>Lösningsförslag</summary><pre><code>sha256sum sample.txt
+echo "change" >> sample.txt
+sha256sum sample.txt</code></pre><p>Ändrat innehåll ger normalt en helt annan digest.</p></details></div>
+
+<div class="card"><span class="tag hard">Nivå 3 · Advanced</span><h3>19. Följ en process</h3><p>Starta ett ofarligt program i background, hitta dess PID och avsluta det på ett normalt sätt.</p><details><summary>Hint</summary>Testa <code>sleep 300 &amp;</code>, <code>pgrep</code> eller <code>jobs</code> och sedan <code>kill</code>.</details><details><summary>Lösningsförslag</summary><pre><code>sleep 300 &
+jobs
+pgrep sleep
+kill PID</code></pre><p>Ersätt PID med det faktiska process-ID:t.</p></details></div>
+
+<div class="card"><span class="tag hard">Nivå 3 · Advanced</span><h3>20. Kombinera flera verktyg</h3><p>Från en testfil: sortera raderna, räkna hur många gånger varje unik rad förekommer och visa resultatet i fallande numerisk ordning efter antal.</p><details><summary>Hint</summary>Kombinera <code>sort</code>, <code>uniq -c</code> och <code>sort -nr</code>.</details><details><summary>Lösningsförslag</summary><pre><code>sort data.txt | uniq -c | sort -nr</code></pre></details></div>
+
+<div class="card"><span class="tag hard">Nivå 3 · Advanced</span><h3>21. Skapa ett enkelt shell script</h3><p>Skriv ett script som visar användarnamn, aktuell katalog och datum. Gör det körbart och kör det från din labbkatalog.</p><details><summary>Hint</summary>Använd shebang, <code>whoami</code>, <code>pwd</code>, <code>date</code> och <code>chmod +x</code>.</details><details><summary>Lösningsförslag</summary><pre><code>#!/bin/bash
+echo "User:"
+whoami
+echo "Directory:"
+pwd
+echo "Date:"
+date</code></pre><p>Spara som <code>info.sh</code>, kör <code>chmod +x info.sh</code> och sedan <code>./info.sh</code>.</p></details></div>
+
+<div class="card"><span class="tag hard">Nivå 3 · Advanced</span><h3>22. Diagnostisera ett simulerat nätverksfel</h3><p>Du kan nå en IP address men ett domain name fungerar inte. Beskriv en rimlig felsökningsordning och vilka kommandon du använder. Ändra inte nätverksinställningar innan du har samlat information.</p><details><summary>Hint</summary>Skilj på IP connectivity och DNS name resolution.</details><details><summary>Lösningsförslag</summary><ol><li>Kontrollera interface och adress med <code>ip addr</code>.</li><li>Kontrollera default route med <code>ip route</code>.</li><li>Testa IP connectivity med <code>ping -c 4 1.1.1.1</code>.</li><li>Testa DNS med <code>dig domain.example</code> eller <code>getent hosts domain.example</code>.</li><li>Kontrollera DNS-konfiguration och relevanta logs om uppslagningen misslyckas.</li></ol></details></div>
+</section>
+
+<section class="chapter" id="quiz">
+<h2>Kunskapstest – 15 frågor</h2>
+<p>Välj ett svar per fråga och tryck sedan på rätta. Försök svara utan att läsa facit först.</p>
+<div id="quizform"></div>
+<button class="action" id="grade">Rätta mina svar</button><button class="action" id="resetquiz">Börja om</button>
+<div class="result" id="quizresult" aria-live="polite"></div>
+<div id="quizfeedback"></div>
+</section>
+
+<section class="intro">
+<h2>Rekommenderad repetitionsordning</h2>
+<ol><li>Permissions och users: <code>chmod</code>, <code>chown</code>, UID, GID, root, sudo och umask.</li><li>Filesystem och text: paths, <code>find</code>, <code>grep</code>, pipes, redirection och links.</li><li>Networking: OSI, TCP/UDP, IP, DNS, DHCP, ports, routing och switching.</li><li>System administration: processes, systemd, services, logs och package managers.</li><li>Storage och boot: partitions, filesystems, mounting, UEFI, GPT och GRUB.</li><li>Intermediate shell: <code>awk</code>, <code>sed</code>, <code>cut</code>, <code>sort</code>, scripting och cron.</li></ol>
+<div class="callout good"><strong>Kom ihåg:</strong> Det viktigaste är inte att memorera varje option. Det är att förstå problemet, veta vilket verktyg som passar, kunna läsa output och kontrollera resultatet.</div>
+</section>
+</main>
+</div>
+<footer>Linuxbiblioteket · Fristående HTML-studieguide · Kan sparas lokalt, skrivas ut som PDF och delas med andra.</footer>
+<script>
+const chapters=[...document.querySelectorAll('main .chapter')];
+const checks=[...document.querySelectorAll('#checklist input[type=checkbox]')];
+const key='linuxbiblioteket-v1';
+function loadProgress(){try{const d=JSON.parse(localStorage.getItem(key)||'{}');checks.forEach((c,i)=>c.checked=!!d.checks?.[i]);chapters.forEach((c,i)=>c.dataset.done=d.chapters?.[i]?'1':'0')}catch(e){}updateProgress()}
+function saveProgress(){const d={checks:checks.map(c=>c.checked),chapters:chapters.map(c=>c.dataset.done==='1')};try{localStorage.setItem(key,JSON.stringify(d))}catch(e){}updateProgress()}
+function updateProgress(){const done=chapters.filter(c=>c.dataset.done==='1').length;document.getElementById('progressbar').style.width=(done/chapters.length*100)+'%';document.getElementById('progresslabel').textContent=done+' av '+chapters.length+' kapitel markerade som klara.'}
+chapters.forEach((c,i)=>{const h=c.querySelector('h2');const b=document.createElement('button');b.className='action';b.textContent='Markera kapitlet som klart';b.style.marginTop='14px';b.addEventListener('click',()=>{c.dataset.done=c.dataset.done==='1'?'0':'1';b.textContent=c.dataset.done==='1'?'Markera som inte klart':'Markera kapitlet som klart';saveProgress()});c.appendChild(b)});
+checks.forEach(c=>c.addEventListener('change',saveProgress));loadProgress();
+document.getElementById('search').addEventListener('input',e=>{const q=e.target.value.toLocaleLowerCase('sv');document.querySelectorAll('main section').forEach(s=>{s.classList.toggle('hidden',!!q&&!s.innerText.toLocaleLowerCase('sv').includes(q))})});
+const quiz=[
+{q:'Vad är skillnaden mellan / och /root?',a:['De är samma katalog','/ är filesystem root; /root är root-användarens home','/ är root-användarens home; /root är filesystem root'],c:1,x:'Filesystem börjar vid /. /root är en katalog under /.'},
+{q:'Vad betyder chmod 755 file?',a:['Alla får full access','Owner får rwx; group och others får r-x','Owner får bara read'],c:1,x:'7 = rwx och 5 = r-x.'},
+{q:'Vad gör pipe-tecknet |?',a:['Kör kommandot som root','Skriver output till fil','Skickar output från ett kommando som input till nästa'],c:2,x:'Pipe kopplar stdout från ett kommando till stdin för nästa.'},
+{q:'Vilket kommando visar IP addresses på interfaces?',a:['ip addr','df -h','ps aux'],c:0,x:'ip addr visar interfaces och deras adresser.'},
+{q:'Vad är DNS huvuduppgift?',a:['Dela ut IP addresses automatiskt','Översätta domain names till IP information','Kryptera nätverkstrafik'],c:1,x:'DNS används för name resolution.'},
+{q:'Vad skiljer switch från router?',a:['De gör exakt samma sak','Switch kopplar lokala enheter; router skickar trafik mellan nätverk','Router fungerar bara trådlöst'],c:1,x:'Switch använder främst MAC addresses på Layer 2; router använder IP på Layer 3.'},
+{q:'Vad gör systemctl enable?',a:['Startar en service omedelbart','Tar bort en service','Konfigurerar automatisk start vid boot'],c:2,x:'enable är inte samma sak som start.'},
+{q:'Vad är skillnaden mellan > och >>?',a:['Båda lägger alltid till','> ersätter innehåll; >> lägger till','> lägger till; >> ersätter'],c:1,x:'> skriver över destinationen; >> append:ar.'},
+{q:'Vad representerar UID 0?',a:['Guest user','Root user','Första vanliga användaren'],c:1,x:'UID 0 är root.'},
+{q:'Vad skiljer hashing från encryption?',a:['Hashing är utformat som envägs; encryption kan dekrypteras med rätt key','De är identiska','Encryption är alltid envägs'],c:0,x:'Hashing ger en digest. Encryption är reversibel med rätt nyckel.'},
+{q:'Vilket kommando visar monterade filesystems och mount points?',a:['findmnt','whoami','chmod'],c:0,x:'findmnt visar mount information.'},
+{q:'Vilket protokoll använder normalt TCP port 22?',a:['DNS','SSH','HTTP'],c:1,x:'SSH använder normalt TCP port 22.'},
+{q:'Vad gör chmod u+x script.sh?',a:['Tar bort execute från alla','Lägger till execute för owner','Byter filens owner'],c:1,x:'u står för user/owner och +x lägger till execute.'},
+{q:'Vilken boot-komponent laddar normalt Linux-kärnan?',a:['GRUB/bootloader','DNS server','DHCP server'],c:0,x:'Bootloadern väljer och laddar kernel.'},
+{q:'Vad visar echo $? ',a:['Nuvarande home directory','Exit status från senaste kommandot','Aktuell IP address'],c:1,x:'$? innehåller exit status från senaste kommandot.'}
+];
+const form=document.getElementById('quizform');
+function renderQuiz(){form.innerHTML='';quiz.forEach((q,i)=>{const d=document.createElement('div');d.className='quiz-q';const p=document.createElement('p');p.innerHTML='<strong>'+(i+1)+'. '+q.q+'</strong>';d.appendChild(p);q.a.forEach((a,j)=>{const l=document.createElement('label');const r=document.createElement('input');r.type='radio';r.name='q'+i;r.value=j;l.appendChild(r);l.append(' '+a);d.appendChild(l)});form.appendChild(d)})}
+renderQuiz();
+document.getElementById('grade').addEventListener('click',()=>{let score=0;let feedback='';quiz.forEach((q,i)=>{const selected=form.querySelector('input[name="q'+i+'"]:checked');const ok=selected&&Number(selected.value)===q.c;if(ok)score++;feedback+='<p><strong>'+(i+1)+'. '+(ok?'Rätt':'Fel')+'</strong> – '+q.x+'</p>'});document.getElementById('quizresult').textContent='Resultat: '+score+' / '+quiz.length;document.getElementById('quizfeedback').innerHTML=feedback});
+document.getElementById('resetquiz').addEventListener('click',()=>{renderQuiz();document.getElementById('quizresult').textContent='';document.getElementById('quizfeedback').innerHTML=''});
+</script>
+</body>
+</html>
